@@ -1,0 +1,69 @@
+﻿@page "/"
+
+<MudContainer MaxWidth="MaxWidth.False">
+    <MudGrid>
+        <MudItem md="4" sm="12" xs="12">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderAvatar>
+                        <MudAvatar Color="Color.Error" Variant="Variant.Filled">
+                            <MudIcon Icon="@Icons.Custom.Uncategorized.Radioactive" Size="Size.Large" />
+                        </MudAvatar>
+                    </CardHeaderAvatar>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.body1">Em Aberto</MudText>
+                        <MudText Typo="Typo.body2">Tickets em aberto</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudText Typo="Typo.h2">@TotalEmAberto</MudText>
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText>12 criados esse mês</MudText>
+                </MudCardContent>        
+            </MudCard>
+        </MudItem>
+        <MudItem md="4" sm="12" xs="12">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderAvatar>
+                        <MudAvatar Color="Color.Tertiary" Variant="Variant.Filled">
+                            <MudIcon Icon="@Icons.Outlined.AccessTime" Size="Size.Large" />
+                        </MudAvatar>
+                    </CardHeaderAvatar>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.body1">Hoje</MudText>
+                        <MudText Typo="Typo.body2">Tickets abertos hoje</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudText Typo="Typo.h2">@AbertosHoje</MudText>
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText>7 ainda em aberto</MudText>
+                </MudCardContent>        
+            </MudCard>
+        </MudItem>
+        <MudItem md="4" sm="12" xs="12">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderAvatar>
+                        <MudAvatar Color="Color.Primary" Variant="Variant.Filled">
+                            <MudIcon Icon="@Icons.Filled.ArrowDownward" Size="Size.Large" />
+                        </MudAvatar>
+                    </CardHeaderAvatar>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.body1">Concluídos hoje</MudText>
+                        <MudText Typo="Typo.body2">Tickets concluídos hoje</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudText Typo="Typo.h2">42</MudText>
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText>...</MudText>
+                </MudCardContent> 
+            </MudCard>        
+        </MudItem>
+    </MudGrid>
+</MudContainer>
