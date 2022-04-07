@@ -10,16 +10,13 @@
                         </MudAvatar>
                     </CardHeaderAvatar>
                     <CardHeaderContent>
-                        <MudText Typo="Typo.body1">Em Aberto</MudText>
-                        <MudText Typo="Typo.body2">Tickets em aberto</MudText>
+                        <MudText Typo="Typo.body1">Total em Aberto</MudText>
+                        <MudText Typo="Typo.body2">@AbertosEsseMes criados esse mês</MudText>
                     </CardHeaderContent>
                     <CardHeaderActions>
-                        <MudText Typo="Typo.h2">@TotalEmAberto</MudText>
+                        <MudText Typo="Typo.h3">@TotalEmAberto</MudText>
                     </CardHeaderActions>
                 </MudCardHeader>
-                <MudCardContent>
-                    <MudText>@AbertosEsseMes criados esse mês</MudText>
-                </MudCardContent>        
             </MudCard>
         </MudItem>
         <MudItem md="4" sm="12" xs="12">
@@ -31,16 +28,13 @@
                         </MudAvatar>
                     </CardHeaderAvatar>
                     <CardHeaderContent>
-                        <MudText Typo="Typo.body1">Hoje</MudText>
-                        <MudText Typo="Typo.body2">Tickets abertos hoje</MudText>
+                        <MudText Typo="Typo.body1">Abertos Hoje</MudText>
+                        <MudText Typo="Typo.body2">@AbertosHojeAindaAberto ainda em aberto</MudText>
                     </CardHeaderContent>
                     <CardHeaderActions>
-                        <MudText Typo="Typo.h2">@AbertosHoje</MudText>
+                        <MudText Typo="Typo.h3">@AbertosHoje</MudText>
                     </CardHeaderActions>
                 </MudCardHeader>
-                <MudCardContent>
-                    <MudText>@AbertosHojeAindaAberto ainda em aberto</MudText>
-                </MudCardContent>        
             </MudCard>
         </MudItem>
         <MudItem md="4" sm="12" xs="12">
@@ -56,16 +50,13 @@
                         <MudText Typo="Typo.body2">Tickets concluídos hoje</MudText>
                     </CardHeaderContent>
                     <CardHeaderActions>
-                        <MudText Typo="Typo.h2">--</MudText>
+                        <MudText Typo="Typo.h3">--</MudText>
                     </CardHeaderActions>
                 </MudCardHeader>
-                <MudCardContent>
-                    <MudText>...</MudText>
-                </MudCardContent> 
             </MudCard>        
         </MudItem>
         <MudItem md="12" sm="12" xs="12">
-            <MudTable Items="@TicketsTabela" Hover="true" Breakpoint="Breakpoint.SmAndDown" Loading="@_loading" LoadingProgressColor="Color.Info">
+            <MudTable Items="@TicketsTabela" Hover="true" Breakpoint="Breakpoint.SmAndDown" Dense="true" Loading="@_loading" LoadingProgressColor="Color.Info">
                 <HeaderContent>
                     <MudTh>Ticket</MudTh>
                     <MudTh>Assunto</MudTh>
@@ -73,10 +64,14 @@
                     <MudTh>Situação</MudTh>
                 </HeaderContent>
                 <RowTemplate>
-                    <MudTd DataLabel="Ticket">@context.id</MudTd>
+                    <MudTd DataLabel="Ticket">   
+                        <MudLink Href=@context.TicketLink Typo="Typo.body2">@context.id</MudLink>
+                    </MudTd>
                     <MudTd DataLabel="Assunto">@context.subject</MudTd>
                     <MudTd DataLabel="Categoria">@context.category</MudTd>
-                    <MudTd DataLabel="Situação">@context.status</MudTd>
+                    <MudTd DataLabel="Situação">
+                        <MudChip Color="@context.CorStatus">@context.status</MudChip>
+                    </MudTd>
                 </RowTemplate>
             </MudTable>
         </MudItem>

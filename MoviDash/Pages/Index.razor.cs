@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MoviDash.Services;
+using MudBlazor;
 using System;
 using System.Net.Http.Json;
 
@@ -58,6 +59,21 @@ namespace MoviDash.Pages
         public DateTime createdDate { get; set; }
         public string subject { get; set; }
         public int id { get; set; }
+
+        public string TicketLink
+        {
+            get { return "https://mhtec.movidesk.com/Ticket/Edit/" + id; }
+        }
+        public Color CorStatus
+        {
+            get {
+                if (status != "Resolvido" && status != "Fechado")
+                    return Color.Error;
+                else
+                    return Color.Success;
+            }
+        }
+
     }
 
 }
