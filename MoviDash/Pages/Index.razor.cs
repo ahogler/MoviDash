@@ -30,6 +30,9 @@ namespace MoviDash.Pages
 
             timer = new System.Threading.Timer(async (object? stateInfo) =>
             {
+                _loading = true;
+                StateHasChanged();
+
                 TicketsAbertosHoje = (await service.AbertosHoje()).ToList();
                 TicketsTabela = TicketsAbertosHoje.OrderByDescending(x => x.id).ToList();
 
@@ -43,6 +46,7 @@ namespace MoviDash.Pages
                 AbertosEsseMes = TicketsTotalEmAberto.Where(x => x.createdDate.Date.Month == DateTime.Now.Date.Month).ToList().Count();
                 UltimaAtualizacao = DateTime.Now;
 
+                _loading = false;
                 StateHasChanged(); // NOTE: MUST CALL StateHasChanged() BECAUSE THIS IS TRIGGERED BY A TIMER INSTEAD OF A USER EVENT
             }, new System.Threading.AutoResetEvent(false), 30000, 30000); // fire every 2000 milliseconds
         }
