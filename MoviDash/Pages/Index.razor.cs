@@ -8,6 +8,7 @@ namespace MoviDash.Pages
 {
     public partial class Index
     {
+        MudTabs tabs;
         public List<Ticket> TicketsAbertosHoje { get; set; }
         public List<Ticket> TicketsTabela { get; set; }
         public List<Ticket> TicketsTotalEmAberto { get; set; }
@@ -18,6 +19,8 @@ namespace MoviDash.Pages
         public DateTime UltimaAtualizacao { get; set; }
 
         private System.Threading.Timer? timer;
+        private System.Threading.Timer? timerTabs;
+        private int tabIndex;
 
         private bool _loading;
 
@@ -50,6 +53,25 @@ namespace MoviDash.Pages
                 _loading = false;
                 StateHasChanged(); // NOTE: MUST CALL StateHasChanged() BECAUSE THIS IS TRIGGERED BY A TIMER INSTEAD OF A USER EVENT
             }, new System.Threading.AutoResetEvent(false), 30000, 30000); // fire every 2000 milliseconds
+
+            tabIndex = 0;
+            timerTabs = new Timer(async (object? stateInfo) =>
+            {
+                Activate(tabIndex);
+
+                if (tabIndex == 0)
+                    tabIndex = 1;
+                else
+                    tabIndex = 0;
+                Activate(tabIndex);
+
+                StateHasChanged();
+            }, new AutoResetEvent(false), 10000, 10000); // fire every 2000 milliseconds
+
+        }
+        void Activate(int index)
+        {
+            tabs.ActivatePanel(index);
         }
     }
     public class Ticket
