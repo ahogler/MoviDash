@@ -35,7 +35,7 @@ namespace MoviDash.Pages
                 StateHasChanged();
 
                 TicketsAbertosHoje = (await service.AbertosHoje()).ToList();
-                TicketsTabela = TicketsAbertosHoje.OrderByDescending(x => x.id).ToList();
+                TicketsTabela = TicketsAbertosHoje.Where(x => x.status != "Resolvido" && x.status != "Fechado").OrderByDescending(x => x.id).ToList();
 
                 AbertosHoje = TicketsAbertosHoje.Count();
 
@@ -67,7 +67,7 @@ namespace MoviDash.Pages
         public Color CorStatus
         {
             get {
-                if (status != "Resolvido" && status != "Fechado")
+                if (status == "Novo")
                     return Color.Error;
                 else
                     return Color.Success;
