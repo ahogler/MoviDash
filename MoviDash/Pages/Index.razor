@@ -19,7 +19,7 @@
                     </CardHeaderActions>
                 </MudCardHeader>
                 <MudCardContent>
-                    <MudText>12 criados esse mês</MudText>
+                    <MudText>@AbertosEsseMes criados esse mês</MudText>
                 </MudCardContent>        
             </MudCard>
         </MudItem>
@@ -40,7 +40,7 @@
                     </CardHeaderActions>
                 </MudCardHeader>
                 <MudCardContent>
-                    <MudText>7 ainda em aberto</MudText>
+                    <MudText>@AbertosHojeAindaAberto ainda em aberto</MudText>
                 </MudCardContent>        
             </MudCard>
         </MudItem>
@@ -65,5 +65,25 @@
                 </MudCardContent> 
             </MudCard>        
         </MudItem>
+        <MudItem md="12" sm="12" xs="12">
+            <MudTable Items="@TicketsTabela" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+                <HeaderContent>
+                    <MudTh>Ticket</MudTh>
+                    <MudTh>Assunto</MudTh>
+                    <MudTh>Categoria</MudTh>
+                    <MudTh>Situação</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Ticket">@context.id</MudTd>
+                    <MudTd DataLabel="Assunto">@context.subject</MudTd>
+                    <MudTd DataLabel="Categoria">@context.category</MudTd>
+                    <MudTd DataLabel="Situação">@context.status</MudTd>
+                </RowTemplate>
+            </MudTable>
+        </MudItem>
+        <MudItem md="12" sm="12" xs="12">
+            <MudText Typo="Typo.body2">Última atualização: @UltimaAtualizacao.ToShortDateString() - @UltimaAtualizacao.ToShortTimeString()</MudText>
+        </MudItem>
+
     </MudGrid>
 </MudContainer>
