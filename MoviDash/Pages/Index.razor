@@ -13,10 +13,10 @@
                         </CardHeaderAvatar>
                         <CardHeaderContent>
                             <MudText Typo="Typo.body1">Total em Aberto</MudText>
-                            <MudText Typo="Typo.body2">@AbertosEsseMes criados esse mês</MudText>
+                            <MudText Typo="Typo.body2">@AbertosEsseMes esse mês</MudText>
                         </CardHeaderContent>
                         <CardHeaderActions>
-                            <MudText Typo="Typo.h3">@TotalEmAberto</MudText>
+                            <MudText Typo="Typo.h4">@TotalEmAberto</MudText>
                         </CardHeaderActions>
                     </MudCardHeader>
                 </MudCard>
@@ -34,7 +34,7 @@
                             <MudText Typo="Typo.body2">@AbertosHojeAindaAberto ainda em aberto</MudText>
                         </CardHeaderContent>
                         <CardHeaderActions>
-                            <MudText Typo="Typo.h3">@AbertosHoje</MudText>
+                            <MudText Typo="Typo.h4">@AbertosHoje</MudText>
                         </CardHeaderActions>
                     </MudCardHeader>
                 </MudCard>
@@ -52,7 +52,7 @@
                             <MudText Typo="Typo.body2">Tickets concluídos hoje</MudText>
                         </CardHeaderContent>
                         <CardHeaderActions>
-                            <MudText Typo="Typo.h3">--</MudText>
+                            <MudText Typo="Typo.h4">@TotalConcluidosHoje</MudText>
                         </CardHeaderActions>
                     </MudCardHeader>
                 </MudCard>        
@@ -69,8 +69,13 @@
                         <MudTd DataLabel="Ticket">   
                             <MudLink Href=@context.TicketLink Typo="Typo.body2">@context.id</MudLink>
                         </MudTd>
-                        <MudTd DataLabel="Assunto">@context.subject</MudTd>
-                        <MudTd DataLabel="Categoria">@context.category</MudTd>
+                        <MudTd DataLabel="Assunto">
+                            <MudText Typo="Typo.body2">@context.subject</MudText>
+                            <MudText Typo="Typo.body2">@context.owner?.businessName - Cliente:@context.Empresa</MudText>                            
+                        </MudTd>
+                        <MudTd DataLabel="Categoria">
+                            <MudText Typo="Typo.body2">@context.category</MudText>
+                        </MudTd>
                         <MudTd DataLabel="Situação">
                             <MudChip Color="@context.CorStatus">@context.status</MudChip>
                         </MudTd>
@@ -85,68 +90,71 @@
     </MudTabPanel>
     <MudTabPanel Text="Por Agente">
         <MudGrid Justify="Justify.Center" Spacing="1" Class="mt-5">
-            <MudItem xs="2">
+            <MudItem xs="3">
                 <center>
-                    <MudAvatar Image="https://s3.amazonaws.com/movidesk-files/4A2475AB83F5D6A86E1DC756EAF21A1B" />        
+                    <MudBadge Content="@TicketsAndre.Count()" Overlap="true" Class="mx-6 my-4" Color="Color.Error">
+                         <MudAvatar Image="https://s3.amazonaws.com/movidesk-files/4A2475AB83F5D6A86E1DC756EAF21A1B" />  
+                    </MudBadge>
                 </center>
                 <MudPaper>
-                    <MudList Clickable="true">
-                        <MudListItem>
-                            <MudText Typo="Typo.body1">12345</MudText>
-                            <MudText Typo="Typo.body2">Erro ao salvar</MudText>
-                        </MudListItem>
+                    <MudList Clickable="true" Dense="true">
+                        @foreach (var item in TicketsAndre)
+                        {
+                            <MudListItem>
+                                <MudText Typo="Typo.caption">@item.id - @item.subject - @item.category</MudText>
+                            </MudListItem>
+                        }
                     </MudList>
                 </MudPaper>
             </MudItem>
-            <MudItem xs="2">
+            <MudItem xs="3">
                 <center>
-                    <MudAvatar Image="https://s3.amazonaws.com/movidesk-files/18C678D5110E43731A065B6B598FC655" />        
+                    <MudBadge Content="@TicketsAde.Count()" Overlap="true" Class="mx-6 my-4" Color="Color.Error">
+                          <MudAvatar Image="https://s3.amazonaws.com/movidesk-files/18C678D5110E43731A065B6B598FC655" /> 
+                    </MudBadge>
                 </center>
                 <MudPaper>
-                    <MudList Clickable="true">
-                        <MudListItem>
-                            <MudText Typo="Typo.body1">12345</MudText>
-                            <MudText Typo="Typo.body2">Erro ao salvar</MudText>
-                        </MudListItem>
+                    <MudList Clickable="true" Dense="true">
+                        @foreach (var item in TicketsAde)
+                        {
+                            <MudListItem>
+                                <MudText Typo="Typo.caption">@item.id - @item.subject - @item.category</MudText>
+                            </MudListItem>
+                        }
                     </MudList>
                 </MudPaper>
             </MudItem>
-            <MudItem xs="2">
+            <MudItem xs="3">
                 <center>
-                    <MudAvatar Image="https://s3.amazonaws.com/movidesk-files/4DEF0ABD48D70B0CCD1CA5CEC237C2E6" />        
+                    <MudBadge Content="@TicketsEverton.Count()" Overlap="true" Class="mx-6 my-4" Color="Color.Error">
+                         <MudAvatar Image="https://s3.amazonaws.com/movidesk-files/4DEF0ABD48D70B0CCD1CA5CEC237C2E6" />    
+                    </MudBadge>                       
                 </center>
                 <MudPaper>
-                    <MudList Clickable="true">
-                        <MudListItem>
-                            <MudText Typo="Typo.body1">12345</MudText>
-                            <MudText Typo="Typo.body2">Erro ao salvar</MudText>
-                        </MudListItem>
+                    <MudList Clickable="true" Dense="true">
+                        @foreach (var item in TicketsEverton)
+                        {
+                            <MudListItem>
+                                <MudText Typo="Typo.caption">@item.id - @item.subject - @item.category</MudText>
+                            </MudListItem>
+                        }
                     </MudList>
                 </MudPaper>
             </MudItem>    
-            <MudItem xs="2">
+            <MudItem xs="3">
                 <center>
-                    <MudAvatar Image="https://s3.amazonaws.com/movidesk-files/0584AF5B193EDF297083404F6010CEDF" />        
+                    <MudBadge Content="@TicketsAni.Count()" Overlap="true" Class="mx-6 my-4" Color="Color.Error">
+                          <MudAvatar Image="https://s3.amazonaws.com/movidesk-files/A80882846BAADDD14C78B1B29B283DF7" />  
+                    </MudBadge>
                 </center>
                 <MudPaper>
-                    <MudList Clickable="true">
-                        <MudListItem>
-                            <MudText Typo="Typo.body1">12345</MudText>
-                            <MudText Typo="Typo.body2">Erro ao salvar</MudText>
-                        </MudListItem>
-                    </MudList>
-                </MudPaper>
-            </MudItem>
-            <MudItem xs="2">
-                <center>
-                    <MudAvatar Image="https://s3.amazonaws.com/movidesk-files/A80882846BAADDD14C78B1B29B283DF7" />        
-                </center>
-                <MudPaper>
-                    <MudList Clickable="true">
-                        <MudListItem>
-                            <MudText Typo="Typo.body1">12345</MudText>
-                            <MudText Typo="Typo.body2">Erro ao salvar</MudText>
-                        </MudListItem>
+                    <MudList Clickable="true" Dense="true">
+                        @foreach (var item in TicketsAni)
+                        {
+                            <MudListItem>
+                                <MudText Typo="Typo.caption">@item.id - @item.subject - @item.category</MudText>
+                            </MudListItem>
+                        }
                     </MudList>
                 </MudPaper>
             </MudItem>
