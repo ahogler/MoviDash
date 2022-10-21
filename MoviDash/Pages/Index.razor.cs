@@ -9,6 +9,8 @@ namespace MoviDash.Pages
     public partial class Index
     {
         MudTabs tabs;
+        public List<Ticket> TicketsAugusto { get; set; }
+        public List<Ticket> TicketsRodrigo { get; set; }
         public List<Ticket> TicketsAndre { get; set; }
         public List<Ticket> TicketsAni { get; set; }
         public List<Ticket> TicketsAde { get; set; }
@@ -38,6 +40,8 @@ namespace MoviDash.Pages
             base.OnInitialized();
             UltimaAtualizacao = DateTime.Now;
 
+            TicketsAugusto = new List<Ticket>();
+            TicketsRodrigo = new List<Ticket>();
             TicketsAndre = new List<Ticket>();
             TicketsAni = new List<Ticket>();
             TicketsAde = new List<Ticket>();
@@ -62,6 +66,8 @@ namespace MoviDash.Pages
                 TicketsConcluidosHoje = (await service.ConcluidosHoje()).ToList();
                 TotalConcluidosHoje = TicketsConcluidosHoje.Count();
 
+                TicketsAugusto = TicketsTotalEmAberto.Where(x => x.owner?.id == "820261949").ToList();
+                TicketsRodrigo = TicketsTotalEmAberto.Where(x => x.owner?.id == "2146209211").ToList();
                 TicketsAndre = TicketsTotalEmAberto.Where(x => x.owner?.id == "1184814735").ToList();
                 TicketsAde = TicketsTotalEmAberto.Where(x => x.owner?.id == "1360469349").ToList();
                 TicketsEverton = TicketsTotalEmAberto.Where(x => x.owner?.id == "1933648929").ToList();

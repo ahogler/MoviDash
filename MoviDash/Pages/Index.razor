@@ -90,7 +90,7 @@
     </MudTabPanel>
     <MudTabPanel Text="Por Agente">
         <MudGrid Justify="Justify.Center" Spacing="1" Class="mt-5">
-            <MudItem xs="3">
+            <MudItem xs="2">
                 <center>
                     <MudBadge Content="@TicketsAndre.Count()" Overlap="true" Class="mx-6 my-4" Color="Color.Error">
                          <MudAvatar Image="https://s3.amazonaws.com/movidesk-files/4A2475AB83F5D6A86E1DC756EAF21A1B" />  
@@ -107,7 +107,7 @@
                     </MudList>
                 </MudPaper>
             </MudItem>
-            <MudItem xs="3">
+            <MudItem xs="2">
                 <center>
                     <MudBadge Content="@TicketsAde.Count()" Overlap="true" Class="mx-6 my-4" Color="Color.Error">
                           <MudAvatar Image="https://s3.amazonaws.com/movidesk-files/18C678D5110E43731A065B6B598FC655" /> 
@@ -124,7 +124,7 @@
                     </MudList>
                 </MudPaper>
             </MudItem>
-            <MudItem xs="3">
+            <MudItem xs="2">
                 <center>
                     <MudBadge Content="@TicketsEverton.Count()" Overlap="true" Class="mx-6 my-4" Color="Color.Error">
                          <MudAvatar Image="https://s3.amazonaws.com/movidesk-files/4DEF0ABD48D70B0CCD1CA5CEC237C2E6" />    
@@ -141,7 +141,7 @@
                     </MudList>
                 </MudPaper>
             </MudItem>    
-            <MudItem xs="3">
+            <MudItem xs="2">
                 <center>
                     <MudBadge Content="@TicketsAni.Count()" Overlap="true" Class="mx-6 my-4" Color="Color.Error">
                           <MudAvatar Image="https://s3.amazonaws.com/movidesk-files/A80882846BAADDD14C78B1B29B283DF7" />  
@@ -150,6 +150,40 @@
                 <MudPaper>
                     <MudList Clickable="true" Dense="true">
                         @foreach (var item in TicketsAni)
+                        {
+                            <MudListItem>
+                                <MudText Typo="Typo.caption">@item.id - @item.subject - @item.category</MudText>
+                            </MudListItem>
+                        }
+                    </MudList>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="2">
+                <center>
+                    <MudBadge Content="@TicketsRodrigo.Count()" Overlap="true" Class="mx-6 my-4" Color="Color.Error">
+                        <MudAvatar Image="https://cdn.app.movidesk.com/default-avatar.png" />
+                    </MudBadge>
+                </center>
+                <MudPaper>
+                    <MudList Clickable="true" Dense="true">
+                        @foreach (var item in TicketsRodrigo)
+                        {
+                            <MudListItem>
+                                <MudText Typo="Typo.caption">@item.id - @item.subject - @item.category</MudText>
+                            </MudListItem>
+                        }
+                    </MudList>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="2">
+                <center>
+                    <MudBadge Content="@TicketsAugusto.Count()" Overlap="true" Class="mx-6 my-4" Color="Color.Error">
+                        <MudAvatar Image="https://cdn.app.movidesk.com/default-avatar.png" />
+                    </MudBadge>
+                </center>
+                <MudPaper>
+                    <MudList Clickable="true" Dense="true">
+                        @foreach (var item in TicketsAugusto)
                         {
                             <MudListItem>
                                 <MudText Typo="Typo.caption">@item.id - @item.subject - @item.category</MudText>
