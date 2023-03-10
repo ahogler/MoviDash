@@ -5,7 +5,7 @@ namespace MoviDash.Services
 {
     public class TicketService : ITicketService
     {
-        const string URL_BASE = "https://api.movidesk.com/public/v1/tickets?token=65a837f3-8d4c-4dc8-b755-536dcf00dbab&$select=id,subject,createdDate,category,status,urgency,justification,ownerTeam";
+        const string URL_BASE = "https://api.movidesk.com/public/v1/tickets?token=65a837f3-8d4c-4dc8-b755-536dcf00dbab&$select=id,subject,createdDate,category,status,urgency,justification,ownerTeam,lastActionDate";
         private readonly HttpClient httpClient;
 
         public TicketService(HttpClient httpClient)

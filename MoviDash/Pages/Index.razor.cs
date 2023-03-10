@@ -54,7 +54,11 @@ namespace MoviDash.Pages
                 StateHasChanged();
 
                 TicketsAbertosHoje = (await service.AbertosHoje()).ToList();
-                TicketsTabela = TicketsAbertosHoje.Where(x => x.status != "Resolvido" && x.status != "Fechado").OrderByDescending(x => x.id).ToList();
+
+                var listaPrincipal = TicketsAbertosHoje.Where(x => x.status != "Resolvido" && x.status != "Fechado").OrderByDescending(x => x.id).ToList();
+                TicketsTabela = listaPrincipal.Where(x => x.justification == "Aguardando retorno do cliente" 
+                    || x.justification == "Em análise pelo suporte" || string.IsNullOrEmpty(x.justification))
+                        .OrderByDescending(x => x.id).ToList();
 
                 AbertosHoje = TicketsAbertosHoje.Count();
 
@@ -66,19 +70,19 @@ namespace MoviDash.Pages
                 TicketsConcluidosHoje = (await service.ConcluidosHoje()).ToList();
                 TotalConcluidosHoje = TicketsConcluidosHoje.Count();
 
-                TicketsAugusto = TicketsTotalEmAberto.Where(x => x.owner?.id == "820261949").ToList();
-                TicketsRodrigo = TicketsTotalEmAberto.Where(x => x.owner?.id == "2146209211").ToList();
-                TicketsAndre = TicketsTotalEmAberto.Where(x => x.owner?.id == "1184814735").ToList();
-                TicketsAde = TicketsTotalEmAberto.Where(x => x.owner?.id == "1360469349").ToList();
-                TicketsEverton = TicketsTotalEmAberto.Where(x => x.owner?.id == "1933648929").ToList();
-                TicketsAni = TicketsTotalEmAberto.Where(x => x.owner?.id == "145414126").ToList();
+                var totalEmAbertoComSuporte = TicketsTotalEmAberto.Where(x => x.justification == "Aguardando retorno do cliente"
+                    || x.justification == "Em análise pelo suporte" || string.IsNullOrEmpty(x.justification)).ToList();
+
+                TicketsAugusto = totalEmAbertoComSuporte.Where(x => x.owner?.id == "820261949").ToList();
+                TicketsRodrigo = totalEmAbertoComSuporte.Where(x => x.owner?.id == "2146209211").ToList();
+                TicketsAni = totalEmAbertoComSuporte.Where(x => x.owner?.id == "145414126").ToList();
 
                 AbertosEsseMes = TicketsTotalEmAberto.Where(x => x.createdDate.Date.Month == DateTime.Now.Date.Month).ToList().Count();
                 UltimaAtualizacao = DateTime.Now;
 
                 _loading = false;
                 StateHasChanged(); // NOTE: MUST CALL StateHasChanged() BECAUSE THIS IS TRIGGERED BY A TIMER INSTEAD OF A USER EVENT
-            }, new System.Threading.AutoResetEvent(false), 20000, 20000); // fire every 2000 milliseconds
+            }, new System.Threading.AutoResetEvent(false), 25000, 25000); // fire every 2000 milliseconds
 
             tabIndex = 0;
             timerTabs = new Timer(async (object? stateInfo) =>
@@ -92,7 +96,7 @@ namespace MoviDash.Pages
                 Activate(tabIndex);
 
                 StateHasChanged();
-            }, new AutoResetEvent(false), 10000, 10000); // fire every 2000 milliseconds
+            }, new AutoResetEvent(false), 15000, 15000); 
 
         }
         void Activate(int index)
@@ -105,12 +109,34 @@ namespace MoviDash.Pages
         public string status { get; set; }
         public string category { get; set; }
         public DateTime createdDate { get; set; }
+
+        public DateTime DataCriacao
+        {
+            get { return createdDate.AddHours(-3); }
+        }
+
+        public TimeSpan TempoAbertura
+        {
+            get { 
+                return (DateTime.Now - DataCriacao); 
+            }
+        }
+
+        public string TempoAberturaTexto
+        {
+            get
+            {
+                return $"{TempoAbertura.ToString(@"hh\:mm")}hrs";
+            }
+        }
+
         public string subject { get; set; }
         public string justification { get; set; }
         public int id { get; set; }
         public Owner owner { get; set; }
         public string urgency { get; set; }
         public string ownerTeam { get; set; }
+        public DateTime lastActionDate { get; set; }
 
         public string TicketLink
         {
@@ -134,6 +160,22 @@ namespace MoviDash.Pages
             {
                 if (clients == null || clients[0].organization == null) return "";
                 return clients[0].organization.businessName;
+            }
+        }
+
+        public int DiaSemAcao
+        {
+            get
+            {
+                var dias = DateTime.Now - lastActionDate;
+                return Convert.ToInt32(dias.TotalDays);
+            }
+        }
+        public string DiaSemAcaoTxt
+        {
+            get
+            {
+                return DiaSemAcao.ToString() + " dias sem ação";
             }
         }
 
