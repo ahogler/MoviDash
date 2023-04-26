@@ -3,12 +3,14 @@ using MoviDash.Services;
 using MudBlazor;
 using System;
 using System.Net.Http.Json;
+using static MudBlazor.Colors;
 
 namespace MoviDash.Pages
 {
     public partial class Index
     {
         MudTabs tabs;
+        public List<PorAgente> TicketsPorAgente { get; set; }
         public List<Ticket> TicketsAugusto { get; set; }
         public List<Ticket> TicketsRodrigo { get; set; }
         public List<Ticket> TicketsAndre { get; set; }
@@ -40,6 +42,7 @@ namespace MoviDash.Pages
             base.OnInitialized();
             UltimaAtualizacao = DateTime.Now;
 
+            TicketsPorAgente = new List<PorAgente>();
             TicketsAugusto = new List<Ticket>();
             TicketsRodrigo = new List<Ticket>();
             TicketsAndre = new List<Ticket>();
@@ -54,8 +57,9 @@ namespace MoviDash.Pages
                 StateHasChanged();
 
                 TicketsAbertosHoje = (await service.AbertosHoje()).ToList();
+                TicketsTotalEmAberto = (await service.TotalAberto()).ToList();
 
-                var listaPrincipal = TicketsAbertosHoje.Where(x => x.status != "Resolvido" && x.status != "Fechado").OrderByDescending(x => x.id).ToList();
+                var listaPrincipal = TicketsTotalEmAberto.Where(x => x.status != "Resolvido" && x.status != "Fechado").OrderByDescending(x => x.id).ToList();
                 TicketsTabela = listaPrincipal.Where(x => x.justification == "Aguardando retorno do cliente" 
                     || x.justification == "Em análise pelo suporte" || string.IsNullOrEmpty(x.justification))
                         .OrderByDescending(x => x.id).ToList();
@@ -64,7 +68,6 @@ namespace MoviDash.Pages
 
                 AbertosHojeAindaAberto = TicketsAbertosHoje.Where(x => x.status != "Resolvido" && x.status != "Fechado").ToList().Count();
 
-                TicketsTotalEmAberto = (await service.TotalAberto()).ToList();
                 TotalEmAberto = TicketsTotalEmAberto.Count();
 
                 TicketsConcluidosHoje = (await service.ConcluidosHoje()).ToList();
@@ -72,6 +75,16 @@ namespace MoviDash.Pages
 
                 var totalEmAbertoComSuporte = TicketsTotalEmAberto.Where(x => x.justification == "Aguardando retorno do cliente"
                     || x.justification == "Em análise pelo suporte" || string.IsNullOrEmpty(x.justification)).ToList();
+
+
+                TicketsPorAgente = totalEmAbertoComSuporte
+                    .GroupBy(a => a.owner?.businessName)
+                    .Select(g => new PorAgente
+                    {
+                        Nome = g.Key,
+                        TotalEmAberto = g.Count()
+                    })
+                    .ToList();
 
                 TicketsAugusto = totalEmAbertoComSuporte.Where(x => x.owner?.id == "820261949").ToList();
                 TicketsRodrigo = totalEmAbertoComSuporte.Where(x => x.owner?.id == "2146209211").ToList();
@@ -103,6 +116,43 @@ namespace MoviDash.Pages
         {
             tabs.ActivatePanel(index);
         }
+    }
+
+    public class PorAgente
+    {
+        public string Nome { get; set; }
+
+        public string PrimeiroNome
+        {
+            get {
+                var spaceIndex = Nome.IndexOf(" ");
+                return Nome.Substring(0, spaceIndex);
+            }
+        }
+
+        public string UrlFoto
+        {
+            get
+            {
+                if (PrimeiroNome.ToUpper().Contains("ANIELE"))
+                    return "https://s3.amazonaws.com/movidesk-files/E61AFD4077A934F7E56AF8A2B20A8349";
+                if (PrimeiroNome.ToUpper().Contains("AUGUSTO"))
+                    return "https://s3.amazonaws.com/movidesk-files/09AE32BFEBF21D5A690390378956707F";
+                if (PrimeiroNome.ToUpper().Contains("ADENILSON"))
+                    return "https://s3.amazonaws.com/movidesk-files/5FF543E6E90E40722927260CCFAC6E07";
+                if (PrimeiroNome.ToUpper().Contains("EVERTON"))
+                    return "https://s3.amazonaws.com/movidesk-files/4DEF0ABD48D70B0CCD1CA5CEC237C2E6";
+                if (PrimeiroNome.ToUpper().Contains("ALEXANDRE"))
+                    return "https://s3.amazonaws.com/movidesk-files/5934A3F1BA2D646F9608EEB2BDCE171E";
+                if (PrimeiroNome.ToUpper().Contains("ALEXANDRE"))
+                    return "https://s3.amazonaws.com/movidesk-files/FB0352F292C47974FE3B7ABA96AF2F16";
+                
+                return "";
+            }
+        }
+
+        public int ResolvidosHoje { get; set; } 
+        public int TotalEmAberto { get; set; } 
     }
     public class Ticket
     {

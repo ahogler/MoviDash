@@ -76,11 +76,13 @@
                                 <MudTd DataLabel="Assunto">
                                     <MudText Typo="Typo.body2">@context.subject</MudText>
                                     <MudText Typo="Typo.body2">@context.owner?.businessName - Cliente:@context.Empresa</MudText>
-                                    <MudText Typo="Typo.body2">@context.DataCriacao - @context.TempoAberturaTexto</MudText>
-                                    @if (context.TempoAbertura.TotalMinutes > 60)
-                                    {
-                                        <span class="blink" style="background-color:#CC0000;color:white;">ATENÇÃO</span>
-                                    }
+                                    <MudText Typo="Typo.body2">
+                                        @context.DataCriacao - @context.TempoAberturaTexto
+                                        @if (context.TempoAbertura.TotalMinutes > 60)
+                                        {
+                                            <span class="blink" style="background-color:#CC0000;color:white;">ATENÇÃO</span>
+                                        }
+                                    </MudText>
                                     
                                 </MudTd>
                                 <MudTd DataLabel="Categoria">
@@ -106,104 +108,28 @@
                 </MudGrid>
             </MudItem>
             <MudItem xs="12" sm="3">
-                <MudPaper>
+                <MudPaper Elevation="0" Padding="0" Spacing="0">
                     <MudList>
-                        <MudListItem>
-                            <MudCard Elevation="0" Padding="0" Spacing="0">
-                                <MudCardHeader>
-                                    <CardHeaderAvatar>
-                                        <MudAvatar Color="Color.Secondary" Image="https://s3.amazonaws.com/movidesk-files/02B467C96528C955BCF3E866B39303C0" />
-                                    </CardHeaderAvatar>
-                                    <CardHeaderContent>
-                                        <MudText Typo="Typo.h6" class="mx-2">Adenilson</MudText>
-                                        <div class="d-flex">
-                                            <MudIcon class="mx-2" Icon="@Icons.Material.Filled.Favorite" Title="Favorite" />
-                                            <MudText Typo="Typo.body2">10 - Resolvidos Hoje</MudText>
-                                        </div>
-                                        <div class="d-flex">
-                                            <MudIcon class="mx-2" Icon="@Icons.Material.Filled.WarningAmber" Color="Color.Error" Title="Favorite" />
-                                            <MudText Typo="Typo.body2" Color="@Color.Error">2 - Pendentes</MudText>
-                                        </div>
-                                        <div class="d-flex">
-                                            <MudIcon class="mx-2" Icon="@Icons.Material.Filled.AccessTimeFilled" Title="Favorite" />
-                                            <MudText Typo="Typo.body2">05:30 hrs</MudText>
-                                        </div>
-                                    </CardHeaderContent>
-                                </MudCardHeader>
-                            </MudCard>
-                        </MudListItem>
-                        <MudListItem>
-                            <MudCard Elevation="0" Padding="0" Spacing="0">
-                                <MudCardHeader>
-                                    <CardHeaderAvatar>
-                                        <MudAvatar Color="Color.Secondary" Image="https://s3.amazonaws.com/movidesk-files/4C128DC9FF063D2C68DEC7D9447D3823" />
-                                    </CardHeaderAvatar>
-                                    <CardHeaderContent>
-                                        <MudText Typo="Typo.h6" class="mx-2">Aniele</MudText>
-                                        <div class="d-flex">
-                                            <MudIcon class="mx-2" Icon="@Icons.Material.Filled.Favorite" Title="Favorite" />
-                                            <MudText Typo="Typo.body2">10 - Resolvidos Hoje</MudText>
-                                        </div>
-                                        <div class="d-flex">
-                                            <MudIcon class="mx-2" Icon="@Icons.Material.Filled.WarningAmber" Color="Color.Error" Title="Favorite" />
-                                            <MudText Typo="Typo.body2" Color="@Color.Error">2 - Pendentes</MudText>
-                                        </div>
-                                        <div class="d-flex">
-                                            <MudIcon class="mx-2" Icon="@Icons.Material.Filled.AccessTimeFilled" Title="Favorite" />
-                                            <MudText Typo="Typo.body2">05:30 hrs</MudText>
-                                        </div>
-                                    </CardHeaderContent>
-                                </MudCardHeader>
-                            </MudCard>
-                        </MudListItem>
-                        <MudListItem>
-                            <MudCard Elevation="0" Padding="0" Spacing="0">
-                                <MudCardHeader>
-                                    <CardHeaderAvatar>
-                                        <MudAvatar Color="Color.Secondary" Image="https://s3.amazonaws.com/movidesk-files/BB460E095508E729BAD8DFEB62BAD91F" />
-                                    </CardHeaderAvatar>
-                                    <CardHeaderContent>
-                                        <MudText Typo="Typo.h6" class="mx-2">Augusto</MudText>
-                                        <div class="d-flex">
-                                            <MudIcon class="mx-2" Icon="@Icons.Material.Filled.Favorite" Title="Favorite" />
-                                            <MudText Typo="Typo.body2">10 - Resolvidos Hoje</MudText>
-                                        </div>
-                                        <div class="d-flex">
-                                            <MudIcon class="mx-2" Icon="@Icons.Material.Filled.WarningAmber" Color="Color.Error" Title="Favorite" />
-                                            <MudText Typo="Typo.body2" Color="@Color.Error">2 - Pendentes</MudText>
-                                        </div>
-                                        <div class="d-flex">
-                                            <MudIcon class="mx-2" Icon="@Icons.Material.Filled.AccessTimeFilled" Title="Favorite" />
-                                            <MudText Typo="Typo.body2">05:30 hrs</MudText>
-                                        </div>
-                                    </CardHeaderContent>
-                                </MudCardHeader>
-                            </MudCard>
-                        </MudListItem>
-                        <MudListItem>
-                            <MudCard Elevation="0" Padding="0" Spacing="0">
-                                <MudCardHeader>
-                                    <CardHeaderAvatar>
-                                        <MudAvatar Color="Color.Secondary" Image="https://s3.amazonaws.com/movidesk-files/FB0352F292C47974FE3B7ABA96AF2F16" />
-                                    </CardHeaderAvatar>
-                                    <CardHeaderContent>
-                                        <MudText Typo="Typo.h6" class="mx-2">Rodrigo</MudText>
-                                        <div class="d-flex">
-                                            <MudIcon class="mx-2" Icon="@Icons.Material.Filled.Favorite" Title="Favorite" />
-                                            <MudText Typo="Typo.body2">10 - Resolvidos Hoje</MudText>
-                                        </div>
-                                        <div class="d-flex">
-                                            <MudIcon class="mx-2" Icon="@Icons.Material.Filled.WarningAmber" Color="Color.Error" Title="Favorite" />
-                                            <MudText Typo="Typo.body2" Color="@Color.Error">2 - Pendentes</MudText>
-                                        </div>
-                                        <div class="d-flex">
-                                            <MudIcon class="mx-2" Icon="@Icons.Material.Filled.AccessTimeFilled" Title="Favorite" />
-                                            <MudText Typo="Typo.body2">05:30 hrs</MudText>
-                                        </div>
-                                    </CardHeaderContent>
-                                </MudCardHeader>
-                            </MudCard>
-                        </MudListItem>
+                        @foreach (var item in TicketsPorAgente.OrderByDescending(x => x.TotalEmAberto))
+                        {
+                            <MudListItem Dense="true" DisableGutters="true">
+                                <MudCard Elevation="0" Padding="0" Spacing="0">
+                                    <MudCardHeader>
+                                        <CardHeaderAvatar>
+                                            <MudAvatar Color="Color.Secondary" Image="@item.UrlFoto" />
+                                        </CardHeaderAvatar>
+                                        <CardHeaderContent>
+                                            <MudText Typo="Typo.h6" class="mx-2">@item.PrimeiroNome</MudText>
+                                            <div class="d-flex">
+                                                <MudIcon class="mx-2" Icon="@Icons.Material.Filled.WarningAmber" Color="Color.Error" Title="Favorite" />
+                                                <MudText Typo="Typo.body2" Color="@Color.Error" Class="mt-1">@item.TotalEmAberto - Pendentes</MudText>
+                                            </div>
+                                        </CardHeaderContent>
+                                    </MudCardHeader>
+                                </MudCard>
+                            </MudListItem>
+                        }
+
                     </MudList>
                 </MudPaper>
             </MudItem>
